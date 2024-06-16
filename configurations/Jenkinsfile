@@ -15,7 +15,7 @@ pipeline{
         }
         stage('Checkout from Git'){
             steps{
-                git branch: 'dev-sec-ops-cicd-pipeline-project-one', url: 'https://github.com/awanmbandi/realworld-microservice-project.git'
+                git branch: 'dev-sec-ops-cicd-pipeline-project-one', url: 'https://github.com/lwersiy/DevSecOps-Realworld-CICD-Project.git'
             }
         }
         stage('Install Dependencies') {
@@ -32,9 +32,9 @@ pipeline{
             }
         }
         stage("SonarQube GateKeeper"){
-           steps {
-                script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'SonarQube-Credential'
+            steps {
+                timeout(time : 1, unit : 'HOURS'){
+                waitForQualityGate abortPipeline: true, credentialsId: 'SonarQube-Credential'
                 }
             }
         }
